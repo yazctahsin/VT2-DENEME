@@ -1,4 +1,5 @@
 @page "/products/edit/{id:int}"
+@using STAJ.Frontend.Models
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
 
@@ -29,8 +30,7 @@ else
 @code {
     [Parameter]
     public int id { get; set; }
-    private Product product = new Product(); // Varsayılan değer atanıyor
-    private List<Product> products = new List<Product>(); // Liste başlatılıyor
+    private Product product = new Product();
 
     protected override async Task OnInitializedAsync()
     {
