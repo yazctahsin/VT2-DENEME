@@ -1,0 +1,45 @@
+@page "/products/edit/{id:int}"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Ürün Güncelle</h3>
+
+@if (product == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <EditForm Model="product" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div>
+            <label>Ürün Adı:</label>
+            <InputText @bind-Value="product.Name" />
+        </div>
+        <div>
+            <label>Fiyat:</label>
+            <InputNumber @bind-Value="product.Price" />
+        </div>
+        <button type="submit">Güncelle</button>
+    </EditForm>
+}
+
+@code {
+    [Parameter]
+    public int id { get; set; }
+    private Product product = new Product(); // Varsayılan değer atanıyor
+    private List<Product> products = new List<Product>(); // Liste başlatılıyor
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await Http.GetFromJsonAsync<Product>($"http://localhost:5247/api/products/{id}");
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        await Http.PutAsJsonAsync($"http://localhost:5247/api/products/{id}", product);
+        NavigationManager.NavigateTo("/products");
+    }
+}

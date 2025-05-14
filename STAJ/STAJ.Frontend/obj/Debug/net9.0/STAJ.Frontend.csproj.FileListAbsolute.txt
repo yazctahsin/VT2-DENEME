@@ -1,0 +1,6 @@
+C:\Users\Dell\STAJ\STAJ.Frontend\obj\Debug\net9.0\STAJ.Frontend.csproj.AssemblyReference.cache
+C:\Users\Dell\STAJ\STAJ.Frontend\obj\Debug\net9.0\STAJ.Frontend.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dell\STAJ\STAJ.Frontend\obj\Debug\net9.0\STAJ.Frontend.AssemblyInfoInputs.cache
+C:\Users\Dell\STAJ\STAJ.Frontend\obj\Debug\net9.0\STAJ.Frontend.AssemblyInfo.cs
+C:\Users\Dell\STAJ\STAJ.Frontend\obj\Debug\net9.0\STAJ.Frontend.csproj.CoreCompileInputs.cache
+C:\Users\Dell\STAJ\STAJ.Frontend\obj\Debug\net9.0\STAJ.Frontend.MvcApplicationPartsAssemblyInfo.cache

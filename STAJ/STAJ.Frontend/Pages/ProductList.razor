@@ -1,0 +1,60 @@
+@page "/products"
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
+
+<h3>Ürün Listesi</h3>
+
+@if (products == null)
+{
+    <p>Yükleniyor...</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ad</th>
+                <th>Fiyat</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Price</td>
+                    <td>
+                        <button @onclick="() => EditProduct(product.Id)">Düzenle</button>
+                        <button @onclick="() => DeleteProduct(product.Id)">Sil</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Http.GetFromJsonAsync<List<Product>>("http://localhost:5247/api/products");
+        products = result ?? new List<Product>(); // Null kontrolü burada yapıldı
+    }
+
+    private void EditProduct(int id)
+    {
+        NavigationManager.NavigateTo($"/products/edit/{id}");
+    }
+
+    private async Task DeleteProduct(int id)
+    {
+        await Http.DeleteAsync($"http://localhost:5247/api/products/{id}");
+        var result = await Http.GetFromJsonAsync<List<Product>>("http://localhost:5247/api/products");
+        products = result ?? new List<Product>(); // Null kontrolü burada da yapıldı
+        StateHasChanged();
+    }
+}

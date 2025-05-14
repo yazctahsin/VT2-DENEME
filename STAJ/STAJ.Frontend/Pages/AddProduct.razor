@@ -1,0 +1,30 @@
+@page "/products/add"
+@inject HttpClient Http
+@inject NavigationManager NavigationManager
+
+<h3>Yeni Ürün Ekle</h3>
+
+<EditForm Model="product" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Ürün Adı:</label>
+        <InputText @bind-Value="product.Name" />
+    </div>
+    <div>
+        <label>Fiyat:</label>
+        <InputNumber @bind-Value="product.Price" />
+    </div>
+    <button type="submit">Kaydet</button>
+</EditForm>
+
+@code {
+    private Product product = new();
+
+    private async Task HandleValidSubmit()
+    {
+        await Http.PostAsJsonAsync("http://localhost:5247/api/products", product);
+        NavigationManager.NavigateTo("/products");
+    }
+}
