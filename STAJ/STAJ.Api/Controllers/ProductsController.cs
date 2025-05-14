@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using STAJ.Api.Data;
-using STAJ.Frontend.Models;
+using STAJ.Api.Data; // STAJ.Api.Data.Product kullanılıyor
+// using STAJ.Frontend.Models; // Eğer gerek yoksa bu satırı kaldırabilirsiniz
+
 namespace STAJ.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -36,7 +37,7 @@ namespace STAJ.Api.Controllers
 
         // POST: api/Products
         [HttpPost]
-        public async Task<IActionResult> CreateProduct([FromBody] Product product)
+        public async Task<IActionResult> CreateProduct([FromBody] STAJ.Api.Data.Product product)
         {
             if (product == null)
                 return BadRequest(new { Message = "Invalid product data." });
@@ -49,7 +50,7 @@ namespace STAJ.Api.Controllers
 
         // PUT: api/Products/{id}
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> UpdateProduct(int id, [FromBody] Product product)
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] STAJ.Api.Data.Product product)
         {
             if (id != product.Id)
                 return BadRequest(new { Message = "Product ID mismatch." });
@@ -60,7 +61,7 @@ namespace STAJ.Api.Controllers
 
             // Update product properties
             existingProduct.Name = product.Name;
-            existingProduct.Price = product.Price; // Price alan�n� g�ncelliyoruz
+            existingProduct.Price = product.Price;
 
             _context.Products.Update(existingProduct);
             await _context.SaveChangesAsync();
